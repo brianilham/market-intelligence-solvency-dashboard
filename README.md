@@ -12,6 +12,19 @@ Untuk menjaga kerahasiaan data internal perusahaan (*Non-Disclosure Agreement* /
 
 ---
 
+## Preview Dashboard
+
+### 1. Ringkasan Eksekutif & Pangsa Pasar
+![Ringkasan Eksekutif](assets/preview_executive.png)
+
+### 2. Solvabilitas & Pengawasan Regulasi OJK
+![Solvabilitas dan Pengawasan Regulasi OJK](assets/preview_solvency.png)
+
+### 3. Profil & Evaluasi Benchmarking Perusahaan (PT MNC Life Assurance)
+![Evaluasi Benchmark Perusahaan](assets/preview_company.png)
+
+---
+
 ## Fitur Utama
 
 1. **Ringkasan Eksekutif**
