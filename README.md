@@ -1,8 +1,14 @@
 # Analisis Kinerja dan Solvabilitas Industri Asuransi Indonesia
 
-Dashboard eksekutif dan sistem deteksi dini untuk memantau solvabilitas modal (*Risk-Based Capital* / RBC), rasio klaim, dan pangsa pasar industri asuransi di Indonesia berbasis data publikasi resmi OJK.
+Dashboard eksekutif dan sistem deteksi dini untuk memantau solvabilitas modal (*Risk-Based Capital* / RBC), rasio klaim, dan dinamika pangsa pasar industri asuransi di Indonesia.
 
-Seluruh data bersumber dari publikasi terbuka Otoritas Jasa Keuangan (Statistik Perasuransian Indonesia) untuk mematuhi ketentuan *Non-Disclosure Agreement* (NDA) dan UU Perlindungan Data Pribadi (UU PDP No. 27/2022).
+---
+
+## Latar Belakang
+
+Dashboard ini saya kembangkan saat menjalani magang di PT MNC Life Assurance. Tujuannya adalah membantu divisi Business Development dan jajaran eksekutif dalam memantau lanskap persaingan industri, mengevaluasi posisi pasar perusahaan melalui *benchmarking*, serta mendeteksi risiko solvabilitas dan permodalan kompetitor secara tepat waktu.
+
+Untuk menjaga kerahasiaan data internal perusahaan (*Non-Disclosure Agreement* / NDA) dan mematuhi UU Perlindungan Data Pribadi (UU PDP No. 27/2022), data yang digunakan pada repositori publik ini sepenuhnya bersumber dari publikasi resmi terbuka Otoritas Jasa Keuangan (Statistik Perasuransian Indonesia).
 
 ---
 
