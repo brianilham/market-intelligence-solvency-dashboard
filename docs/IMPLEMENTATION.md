@@ -1,79 +1,79 @@
-# Implementation Plan: Analisis Komprehensif Industri Asuransi Indonesia
+# Rencana Implementasi dan Log Keputusan (ADR)
 
-Dokumen ini memetakan tahapan implementasi teknis, struktur repositori, dan *Architectural Decision Records* (ADR) untuk proyek analitik asuransi berbasis data publik OJK.
+Dokumen ini memetakan tahapan implementasi teknis, struktur repositori, dan *Architectural Decision Records* (ADR) pada proyek analitik industri asuransi berbasis data OJK.
 
 ---
 
-## 🚀 Fase Implementasi Proyek
+## Fase Implementasi
 
-### Phase 1: Environment Setup & Data Foundation
+### Fase 1: Setup Lingkungan dan Fondasi Data
 - [x] Inisialisasi lingkungan virtual Python terisolasi menggunakan `uv venv`.
-- [x] Instalasi dependensi analitik: `duckdb`, `polars`, `pandera`, `streamlit`, `plotly`, `requests`, `openpyxl`.
-- [x] Pembuatan data contract & skema validasi deklaratif menggunakan Pandera (`src/contracts/schemas.py`).
-- [x] Pembangunan parser & builder data resmi OJK (`src/pipeline/ojk_excel_parser.py` & `src/generators/ojk_data_builder.py`).
-- [x] Setup basis data lokal analitik `data/asuransi.duckdb`.
+- [x] Pemasangan dependensi: `duckdb`, `polars`, `pandera`, `streamlit`, `plotly`, `requests`, `openpyxl`.
+- [x] Pembuatan skema validasi deklaratif dengan Pandera (`src/contracts/schemas.py`).
+- [x] Pembangunan parser dan generator data resmi OJK (`src/pipeline/ojk_excel_parser.py` dan `src/generators/ojk_data_builder.py`).
+- [x] Inisialisasi basis data analitik lokal `data/asuransi.duckdb`.
 
-### Phase 2: Ingestion Pipeline & Data Modeling
-- [x] Pipeline ingesti: Validasi data OJK via Pandera → Ingest ke DuckDB (`src/pipeline/ingest.py`).
-- [x] Pemodelan views analitik di DuckDB (`src/pipeline/transform.py`):
-  - `vw_market_share`: Pangsa pasar premi per kategori asuransi tahunan.
+### Fase 2: Pipeline Ingesti dan Pemodelan Data
+- [x] Pipeline ingesti: Validasi data OJK via Pandera ke DuckDB (`src/pipeline/ingest.py`).
+- [x] Pembentukan views analitik di DuckDB (`src/pipeline/transform.py`):
+  - `vw_market_share`: Pangsa pasar premi per sektor tahunan.
   - `vw_ranking_premi`: Peringkat perusahaan berdasarkan premi bruto.
-  - `vw_ranking_rbc`: Peringkat solvabilitas modal dengan indikator ambang 120%.
+  - `vw_ranking_rbc`: Peringkat solvabilitas modal dengan indikator ambang batas 120%.
   - `vw_yoy_growth`: Pertumbuhan tahunan premi dan laba per entitas.
-  - `vw_industry_summary`: Rangkuman agregat makro perasuransian nasional.
+  - `vw_industry_summary`: Rangkuman agregat industri perasuransian nasional.
 
-### Phase 3: Analytics Engine & Key Metrics
-- [x] Modul kalkulasi KPI industri & per entitas (`src/analytics/kpi.py`).
-- [x] Modul ranking metrik finansial & skor komposit (`src/analytics/ranking.py`).
-- [x] Modul analisis tren historis & matriks korelasi (`src/analytics/trends.py`).
+### Fase 3: Modul Analitik dan Kalkulasi Metrik
+- [x] Kalkulasi KPI industri dan per entitas (`src/analytics/kpi.py`).
+- [x] Modul ranking metrik finansial dan skor komposit (`src/analytics/ranking.py`).
+- [x] Analisis tren historis dan matriks perbandingan (`src/analytics/trends.py`).
 
-### Phase 4: Executive Dashboard & Delivery
-- [x] Desain ulang UI menjadi sistem 3 halaman terarah (`src/app/dashboard.py`):
-  - **Halaman 1: Ringkasan Eksekutif** — Makro KPI, Donut Chart Pangsa Pasar, Top 10 Pemimpin Premi.
-  - **Halaman 2: Solvabilitas & Risiko OJK** — Early Warning Watchlist (RBC < 120%, rasio klaim bengkak).
-  - **Halaman 3: Profil Perusahaan** — Pencarian entitas mandiri & benchmarking vs industri.
-- [x] Uji coba fungsionalitas dan eksekusi dashboard lokal.
+### Fase 4: Dashboard Eksekutif dan Delivery
+- [x] Desain sistem dashboard 3 tab terarah (`src/app/dashboard.py`):
+  - **Tab 1: Ringkasan Eksekutif** — Makro KPI, distribusi pangsa pasar per sektor, Top 10 Leaders.
+  - **Tab 2: Solvabilitas & Pengawasan OJK** — Early Warning Watchlist (RBC < 120%, rasio klaim > 65%, defisit laba).
+  - **Tab 3: Profil & Evaluasi Perusahaan** — Pencarian entitas dan matriks benchmarking vs rata-rata industri.
+- [x] Pengujian fungsionalitas dan eksekusi test suite pytest.
 
 ---
 
-## 📁 Struktur Repositori Terstandarisasi
+## Struktur Repositori
 
 ```text
-asuransi-indonesia/
-├── docs/                             # Spesifikasi Teknis Proyek
+market-intelligence-solvency-dashboard/
+├── docs/                             # Dokumentasi teknis proyek
 │   ├── PRD.md                        # Product Requirements Document
-│   ├── ARCHITECTURE.md               # Arsitektur Sistem & Data Flow
-│   └── IMPLEMENTATION.md             # Rencana Implementasi & ADR
+│   ├── ARCHITECTURE.md               # Arsitektur sistem dan data flow
+│   └── IMPLEMENTATION.md             # Rencana implementasi dan ADR
 ├── src/
 │   ├── contracts/
-│   │   └── schemas.py                # Pandera Data Contracts
+│   │   └── schemas.py                # Kontrak data Pandera
 │   ├── pipeline/
-│   │   ├── ojk_excel_parser.py       # Parser Berkas Excel Resmi OJK
-│   │   ├── ingest.py                 # Validasi & Pemuatan ke DuckDB
-│   │   └── transform.py              # Pembentukan Analytical Views
+│   │   ├── ojk_excel_parser.py       # Parser berkas Excel OJK
+│   │   ├── ingest.py                 # Validasi dan pemuatan ke DuckDB
+│   │   └── transform.py              # Pembentukan analytical views
 │   ├── analytics/
-│   │   ├── kpi.py                    # Kalkulasi Indikator Kunci
-│   │   ├── ranking.py                # Perankingan & Skor Komposit
-│   │   └── trends.py                 # Analisis Time-Series
+│   │   ├── kpi.py                    # Kalkulasi indikator kunci
+│   │   ├── ranking.py                # Perankingan dan skor komposit
+│   │   └── trends.py                 # Analisis time-series
 │   └── app/
-│       └── dashboard.py              # Streamlit Executive Dashboard
+│       └── dashboard.py              # Dashboard eksekutif Streamlit
 ├── data/
-│   ├── raw/                          # Berkas Mentah OJK (.parquet / .xlsx)
-│   ├── processed/                    # Data Terverifikasi & Karantina
-│   └── asuransi.duckdb               # Database OLAP Lokal DuckDB
-├── tests/                            # Pytest Test Suite
-├── pyproject.toml                    # Dependensi Proyek
-└── README.md                         # Panduan Portofolio
+│   ├── raw/                          # Berkas data mentah (.parquet)
+│   ├── processed/                    # Data terverifikasi dan karantina
+│   └── asuransi.duckdb               # Database analitik lokal DuckDB
+├── tests/                            # Pytest test suite
+├── pyproject.toml                    # Konfigurasi dependensi dan linter
+└── README.md                         # Panduan proyek
 ```
 
 ---
 
-## 📝 Technical Decision Log (ADR)
+## Architectural Decision Records (ADR)
 
 | Tanggal | Keputusan Teknis | Alternatif | Alasan Pemilihan |
-| :--- | :--- | :--- | :--- |
-| **2026-09-27** | **Peralihan ke Data Resmi Publik OJK** | Data Internal Magang, Data Sintetis Faker | Menghindari pelanggaran NDA perusahaan magang, 100% legal, dan meningkatkan kredibilitas portofolio dengan entitas riil industri. |
-| **2026-09-27** | **Desain Dashboard 3 Halaman Terarah** | Dashboard 4 Halaman Padat | Mengurangi *cognitive overload* pembaca; memfokuskan narasi pada *Executive Summary* dan *Early Warning System*. |
-| **2026-09-27** | **DuckDB sebagai Analytical Engine** | SQLite, PostgreSQL | Eksekusi query analitik berbasis columnar (OLAP) sangat cepat pada file lokal tanpa memerlukan server terpisah. |
-| **2026-09-27** | **Pandera untuk Validasi Kontrak Data** | Pydantic murni | Mendukung validasi data tabular berbasis Polars/Pandas secara deklaratif dan berperforma tinggi. |
-| **2026-09-27** | **Streamlit Mode Read-Only Connection** | Read-Write Connection | Mencegah file IO lock pada file `asuransi.duckdb` saat dashboard sedang aktif dibuka di browser. |
+|:---|:---|:---|:---|
+| **2026-09-27** | **Penggunaan Data Publikasi Resmi OJK** | Data internal magang, data sintetis Faker | Menjaga kepatuhan NDA, memenuhi transparansi publik, dan menggunakan entitas asuransi riil di Indonesia. |
+| **2026-09-27** | **Struktur Dashboard 3 Tab Terarah** | Halaman tunggal panjang atau 4 halaman padat | Memisahkan fokus analitik secara teratur antara agregasi makro, early warning solvabilitas, dan profiling individual. |
+| **2026-09-27** | **DuckDB sebagai Analytical Engine** | SQLite, PostgreSQL server | Pemrosesan kolom (OLAP) cepat pada berkas lokal tanpa memerlukan instalasi server database eksternal. |
+| **2026-09-27** | **Pandera untuk Validasi Kontrak Data** | Validasi manual atau Pydantic murni | Mendukung validasi data tabular berbasis Polars/DataFrames secara deklaratif dengan penegakan tipe kolom dan rentang numerik. |
+| **2026-09-27** | **Koneksi Read-Only pada Dashboard** | Mode Read-Write | Mencegah file IO lock pada `asuransi.duckdb` ketika aplikasi dibuka secara bersamaan di browser. |
