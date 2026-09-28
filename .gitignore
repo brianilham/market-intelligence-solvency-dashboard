@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+
+# Distribution
+dist/
+build/
+*.egg-info/
+*.egg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Data files (jangan commit data mentah/hasil ke repo)
+data/raw/*.parquet
+data/processed/**/*.parquet
+data/cache/
+data/*.duckdb
+data/*.duckdb.wal
+
+# Jupyter
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# Environment variables
+.env
+.env.local
+
+# MLflow (jika ditambahkan di fase lanjutan)
+mlruns/
+mlflow.db
+
+# Logs
+*.log
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*

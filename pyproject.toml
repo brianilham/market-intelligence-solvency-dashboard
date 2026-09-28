@@ -1,0 +1,49 @@
+[project]
+name = "asuransi-indonesia"
+version = "0.1.0"
+description = "Analisis Komprehensif Industri Asuransi Indonesia — Kinerja Keuangan, Tren Pasar, dan Benchmarking"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    # Data Acquisition
+    "beautifulsoup4>=4.12",
+    "requests>=2.31",
+    "lxml>=5.0",
+    "faker>=28.0",
+
+    # Data Engine & Processing
+    "duckdb>=1.1",
+    "polars>=1.5",
+
+    # Data Contract & Validation
+    "pandera>=0.20",
+
+    # Analytics & Visualization
+    "plotly>=5.22",
+
+    # Delivery
+    "streamlit>=1.38",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+notebooks = [
+    "jupyterlab>=4.0",
+    "nbformat>=5.0",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
