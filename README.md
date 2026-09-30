@@ -5,9 +5,6 @@
 [![DuckDB](https://img.shields.io/badge/DuckDB-OLAP%20Engine-FFF000?style=flat-square&logo=duckdb&logoColor=black)](https://duckdb.org/)
 [![Polars](https://img.shields.io/badge/Polars-DataFrames-CD792C?style=flat-square&logo=polars&logoColor=white)](https://pola.rs/)
 [![Pandera](https://img.shields.io/badge/Pandera-Contract%20Validation-blueviolet?style=flat-square)](https://pandera.readthedocs.io/)
-[![Tests](https://img.shields.io/badge/Tests-30%20Passed-success?style=flat-square&logo=pytest&logoColor=white)](tests/)
-[![Ruff](https://img.shields.io/badge/Code%20Style-Ruff-000000?style=flat-square&logo=ruff&logoColor=white)](https://docs.astral.sh/ruff/)
-[![Regulatory Standard](https://img.shields.io/badge/Regulation-POJK%20No.%2071%2F2016-0052CC?style=flat-square)](https://www.ojk.go.id/)
 
 Dashboard eksekutif dan sistem deteksi dini untuk memantau solvabilitas modal (*Risk-Based Capital* / RBC), rasio klaim, dan dinamika pangsa pasar industri asuransi di Indonesia.
 
